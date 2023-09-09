@@ -1,5 +1,5 @@
 import sys, os
-import logging
+from logger import logging
 
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
@@ -22,11 +22,13 @@ class CustomException(Exception):
     
 
 # Testing the exception file
-"""
+
+""" 
 if __name__=="__main__":
     
     try:
         a=1/0
     except Exception as e:
         logging.info("Testing the Exception: Division by error")
-        raise CustomException(e,sys)"""
+        raise CustomException(e,sys)
+"""
