@@ -6,6 +6,7 @@ import os,sys
 from xgboost import XGBClassifier
 from sensor import utils
 import numpy as np
+from sklearn.metrics import f1_score
 
 
 
@@ -15,6 +16,7 @@ class ModelTrainer:
                  data_transformation_artifact:artifact_entity.DataTransformationArtifact
                  ):
         try:
+            logging.info(f"{'>>'*20} Model Trainer {'<<'*20}")
             self.model_trainer_config=model_trainfer_config
             self.data_transformation_artifact=data_transformation_artifact
             
