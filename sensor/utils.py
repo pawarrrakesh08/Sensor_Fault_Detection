@@ -10,14 +10,28 @@ import numpy as np
 
 def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataFrame:
     """
-    Description: This function return collection as dataframe
+    Description: This function retunrn collection as dataframe
+    ==========================================================
+    Args:
+        database_name (str): database name
+        collection_name (str): collection name
+    ==========================================================
+    Returns:
+        pd.DataFrame: Returns pandas dataframe as collection
     """
     try:
-        df = df.drop("_id",axis=1)
-        logging.info(f"Row and columns in df: {df.shape}")
+        logging.info(f"Reading data from database: {database_name} and collection:{collection_name}")
+        df = pd.DataFrame(list(mongo_client[database_name][collection_name].find()))
+        logging.info(f"Found columns: {df.columns}")
+        
+        if "_id" in df.columns:
+            logging.info(f"Dropping column: _id")
+            df = df.drop("_id",axis=1)
+            
+        logging.info(f"Rows and columns in df :{df.shape}")
         return df
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(e,sys)
     
 
     
@@ -42,12 +56,12 @@ def convert_columns_float(df:pd.DataFrame,exclude_columns:list)->pd.DataFrame:
     
 def save_object(file_path:str,obj:object)-> None:
     try:
-        logging.info("Entered the save_object method of MainUtils class")
+        logging.info("Entered the save_object method of utils")
         os.makedirs(os.path.driname(file_path),exist_ok=True)
         with open(file_path,"wb") as file_obj:
             dill.dump(obj,file_obj)
             
-        logging.info("Exited the save_object method of MainUtils class")
+        logging.info("Exited the save_object method of utils ")
     except Exception as e:
         raise CustomException(e,sys) from e
 
