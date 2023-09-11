@@ -17,11 +17,11 @@ from sensor.config import TARGET_COLUMN
 class DataTransofrmation:
     
     def __init__(self,data_transformation_config:config_entity.DataTransformationConfig,
-                 data_ingestion_artifcat:artifact_entity.DataIngestionArtifact):
+                 data_ingestion_artifact:artifact_entity.DataIngestionArtifact):
         try:
             logging.info(f"{'<<'*20} Data Transformation {'<<'*20}")
             self.data_transformation_config=data_transformation_config
-            self.data_ingestion_artifact=data_ingestion_artifcat
+            self.data_ingestion_artifact=data_ingestion_artifact
             
         except Exception as e:
             raise CustomException(e,sys)
@@ -70,7 +70,7 @@ def initaiate_data_transformation(self,)-> artifact_entity.DataTransformationArt
         input_feature_test_arr = transformatiovn_pipeline.transform(input_feature_test_df)
         
         
-        smt = SMOTETomek(sampling_strategy="minority")
+        smt = SMOTETomek(random_state=42)
         
         logging.info(f"Before resampling in training set input :{input_feature_train_arr.shape} Target :{target_feture_train_arr.shape}")
         input_feature_train_arr,target_feture_train_arr = smt.fit_resample(input_feature_train_arr,target_feture_train_arr)

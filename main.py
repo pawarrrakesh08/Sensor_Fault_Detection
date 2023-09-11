@@ -9,7 +9,11 @@ from sensor.components.data_transformation import DataTransofrmation
 from sensor.components.model_trainer import ModelTrainer
 from sensor.components.model_evaluation import ModelEvaluation
 
+from sensor.pipeline.training_pipeline import start_training_pipeline
+from sensor.pipeline.batch_prediction import start_batch_prediction
 
+
+file_path = "./aps_failure_training_set1.csv"
 
 print(__name__)
 if __name__=="__main__":
@@ -49,7 +53,10 @@ if __name__=="__main__":
                                      data_transformation_artifact=data_ingestion_artifact,
                                      model_trainer_artifact=model_trainer_artifact
                                      )
-        model_eval_aritifact = model_eval.initiate_model_evaluation()
+        model_eval_aritifact = model_eval.initiate_model_evaluation
+        
+        output_file = start_batch_prediction(input_file_path=file_path)
+        print(output_file)
     
     except Exception as e:
         raise CustomException(e)
